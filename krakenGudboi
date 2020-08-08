@@ -1,0 +1,327 @@
+	local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/chimnguu/ngu/master/giadinhcyberuilib.lua"))()
+
+	local w = lib:CreateWindow('Saber Simulator')
+
+	local label = w:Label('Auto Saber')
+	w:Toggle('Auto Farm',function(v) shared.farmcc =v end)
+	w:Toggle('Auto Sell',function(v) shared.sellconcac1 =v end)
+	w:Toggle('Auto Sword',function(v) shared.sword =v end)
+	w:Toggle('Auto DNA',function(v) shared.dna =v end)
+	w:Toggle('Auto Rank',function(v) shared.rank =v end)
+	w:Toggle('Auto Skills',function(v) shared.skill =v end)
+	w:Toggle('Claim Flag',function(v) shared.flag =v end)
+	w:Label('Order',Color3.fromRGB(255,255,255))
+	w:Label('---> Kill Player Here',Color3.fromRGB(255,255,255))
+	local tog= false
+	local player = false
+	local toggle =w:Toggle("Kill",function(cc)
+	tog = cc
+	end)
+	local box = w:TextBox("TypeNameHere",function(v)
+	player = v
+	end)
+	spawn(function()
+		while wait(0.2) do
+			if tog == true then    
+	game.Workspace[player].HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame*CFrame.new(0,0,-3)
+	game.Workspace[player].HumanoidRootPart.Anchored = true
+	end
+	end
+	end) 
+
+	--- Anti Afk
+	local afk = game:GetService("VirtualUser")
+	game:GetService("Players").LocalPlayer.Idled:connect(function()
+	afk:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+	wait(1)
+	afk:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+	end)
+	-------------------------------------------------------------------
+	local function sword()
+	local string_1 = "Swords";
+	local Target = game:GetService("ReplicatedStorage").Events.BuyAll;
+	Target:FireServer(string_1);
+	end
+
+	local function dna()
+	local string_1 = "Backpacks";
+	local Target = game:GetService("ReplicatedStorage").Events.BuyAll;
+	Target:FireServer(string_1);
+	end
+
+	---- auto rank nhu con cac
+	local function rank()
+		for _,v in pairs( game:GetService("ReplicatedStorage").ShopItems.Classes:GetChildren()) do
+		if v:IsA("Folder") then
+	local userdata_1 = v;
+	local Target = game:GetService("ReplicatedStorage").Events.BuyItem;
+	Target:FireServer(userdata_1);
+	end
+	end
+	end
+	------ cach ly
+
+	local function skill()
+	local string_1 = "JumpBoosts";
+	local Target = game:GetService("ReplicatedStorage").Events.BuyAll;
+	Target:FireServer(string_1);
+	end
+
+	local function bosshit()
+	local string_1 = "BossBoosts";
+	local Target = game:GetService("ReplicatedStorage").Events.BuyAll;
+	Target:FireServer(string_1);
+	end
+
+	local sellconcac = CFrame.new(532.8, 186.313, 151.486) 
+	local Hum = game.Players.LocalPlayer.Character.HumanoidRootPart 
+
+	local function tool()
+	for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do 
+	if v:IsA('Tool') then 
+	v.Parent = game.Players.LocalPlayer.Character
+	end
+	end
+	end
+
+	local function farmcc()
+	tool()
+	local Target = game:GetService("ReplicatedStorage").Events.Clicked;
+	Target:FireServer();
+	end
+
+	local function sellconcac1()
+	Hum.CFrame = sellconcac
+	local Target = game:GetService("ReplicatedStorage").Events.Sell;
+	Target:FireServer();
+	end
+
+	local w = lib:CreateWindow('Features')
+	w:Label("Setting",Color3.fromRGB(255,255,255),Color3.fromRGB(0,216,111)) --BgColor,TextColor
+	local togui = w:ToggleUI(Enum.KeyCode.B)
+	local des = w:DestroyUI()
+	local jump = w:Bind('INF Jump',Enum.KeyCode.Space,function()
+	game.Players.LocalPlayer.Character.Humanoid:ChangeState(3)
+	wait()
+	end)
+
+	local Slider = w:Slider('Speed',{min =0,max = 100},function(i) 
+	print('concac') end)
+	---TIme
+	local label = w:Label('Time Elapsed:')
+
+	local label = w:Label('Credit:')
+	local label = w:Label('Script:Kraken#1700')
+	local label = w:Label('Ui:Chim#2575')
+
+	spawn(function()
+	    while wait() do 
+	    	if shared.farmcc then
+	    	sword()
+	   	 end end end)		
+	spawn(function()
+	    while wait() do 
+	        if shared.sellconcac1 then
+	            sellconcac1()
+	        end end end)	
+
+	spawn(function()
+	    while wait() do 
+	        if shared.sword then
+	            sword()
+	       end end end)	
+
+	spawn(function()
+	    while wait(2) do 
+	        if shared.dna then
+	            dna()
+	        end end end)	
+
+	spawn(function()
+	    while wait(1.5) do 
+	        if shared.rank then
+	            rank()
+	        end end end)	
+
+	spawn(function()
+	    while wait(0.5) do 
+	        if shared.skill and shared.bosshit then
+	            skill()
+	            bosshit()
+	        end end end)	
+
+	local petname = {}
+
+	for i,v in pairs(game:GetService('ReplicatedStorage'):FindFirstChild('Eggs'):GetChildren()) do
+	    if not petname[v.Name] then
+	        petname[v.Name] = v.Name
+	    end
+	end
+
+	local w = lib:CreateWindow('Teleport & Eggs')
+
+	local tele1 = w:Button('MainLand',function() 
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(542.222595, 184.792038, 26.2749233)
+	end)
+
+	local island = w:Dropdown('IsLand',{'Island1','Island2','Island3','Island4','Island5','Island6','Island7','Island8','Island9','Island10','Island11','Island12','Island13','Island14','Island15','Island16','Island17','Island18','Island19','Island20','Island21','Island22','Island23','Island24','Island25','Island26','Island27','Island28','Island29','Island30',
+	'Island31','Island32','Island33','Island34','Island35','Island36','Island37','Island38','Island39','Island40','Island41','Island42','Island43','Island44','Island45','Island45','Island46','Island47','IsLand48','Island49','Island50','Island51','Island52','Island53','Island54','Island55','Island56','Island57','Island58'},function(v) 
+	if v == 'Island1' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(493.070526, 797.530945, 263.546448)
+		elseif v == 'Island2' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(497.486938, 2651.20337, -358.575836)
+		elseif v == 'Island3' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(697.391418, 7090.16309, -327.796539)
+		elseif v == 'Island4' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(523.804382, 12696.1699, -238.393661)
+		elseif v == 'Island5' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(549.160828, 19437.209, -46.7291298)
+		elseif v == 'Island6' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(472.218292, 26254.709, -139.985931)
+		elseif v == 'Island7' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(627.005127, 29798.3652, -28.5974789)
+		elseif v == 'Island8' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(513.263611, 34167.1563, -155.506851)
+		elseif v == 'Island9' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(622.935791, 38092.2656, -161.818146)
+		elseif v == 'Island10' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(611.553528, 42886.2656, -216.915649)
+		elseif v == 'Island11' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(632.443726, 48847.0273, -263.581329)
+		elseif v == 'Island12' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(537.661804, 52641.0273, -192.576675)
+		elseif v == 'Island13' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(538.076416, 57624.9219, -205.623779)
+		elseif v == 'Island14' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(538.076782, 62380.9336, -205.624603)
+		elseif v == 'Island15' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(537.454712, 67085.4922, -203.095154)
+		elseif v == 'Island16' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(538.181763, 72949.5703, -205.53566)
+		elseif v == 'Island17' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(538.181763, 77949.5703, -205.53566)
+		elseif v == 'Island18' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(514.634705, 80722.2656, -41.4081993)
+		elseif v == 'Island19' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(518.154602, 84820.2969, -41.835495)
+		elseif v == 'Island20' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(524.683044, 90387.6953, -44.4515038)
+		elseif v == 'Island21' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(521.30127, 94250.3906, -43.3375969)
+		elseif v == 'Island22' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(522.129211, 97710.0234, -42.5776939)
+		elseif v == 'Island23' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(522.131165, 101246.984, -42.5772667)
+		elseif v == 'Island24' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(611.531006, 104245.352, -164.586563)
+		elseif v == 'Island25' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(644.339661, 108784.742, -21.1452923)
+		elseif v == 'Island26' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(649.171204, 113360.164, -21.2299805)
+		elseif v == 'Island27' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(650.027954, 117957.125, -17.8998795)
+		elseif v == 'Island28' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(643.789795, 121862.125, -20.6666088)
+		elseif v == 'Island29' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(641.842773, 127918.172, -21.7878399)
+		elseif v == 'Island30' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(773.407898, 131086.516, -59.5384712)		
+		elseif v == 'Island31' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(601.327087, 135605.328, -160.881927)
+		elseif v == 'Island32' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(639.367249, 140144.719, -25.2712173)
+		elseif v == 'Island33' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(647.970276, 143495.875, -20.1520767)
+		elseif v == 'Island34' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(572.059875, 146931.234, -145.879288)
+		elseif v == 'Island35' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(574.737488, 150266.75, -160.328598)
+		elseif v == 'Island36' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(403.293427, 152665.406, 11.8719034)
+		elseif v == 'Island37' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(634.492188, 158317.453, -250.698547)
+		elseif v == 'Island38' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(538.550659, 162111.484, -184.56572)
+		elseif v == 'Island39' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(538.69043, 164287.859, -209.189026)
+		elseif v == 'Island40' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(537.867432, 166413.781, -197.792053)
+		elseif v == 'Island41' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(538.597107, 171576.688, -144.161819)
+		elseif v == 'Island42' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(416.921875, 175486.703, -273.519958)
+		elseif v == 'Island43' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(607.508911, 179360.672, -283.043152)
+		elseif v == 'Island44' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(545.126404, 182099.828, -244.312073)
+		elseif v == 'Island45' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(435.725433, 184959.734, -257.51651)
+		elseif v == 'Island46' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(497.095459, 187549.891, -189.01564)
+		elseif v == 'Island47' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(624.654053, 190397.188, -171.441559)
+		elseif v == 'Island48' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(538.097595, 192604.719, -205.54631)
+		elseif v == 'Island49' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(537.005798, 195962.297, -203.945023)
+		elseif v == 'Island50' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(538.250183, 199261.906, -209.727066)
+		elseif v == 'Island51' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(538.219177, 202503.719, -206.434265)
+		elseif v == 'Island52' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(633.642639, 206035.797, -250.225372)
+		elseif v == 'Island53' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(633.981934, 209506.063, -248.155151)
+		elseif v == 'Island54' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(634.121033, 213007.047, -235.897064)
+		elseif v == 'Island55' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(633.459717, 216608.234, -251.811401)
+		elseif v == 'Island56' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(632.456909, 220079.406, -252.675537)
+		elseif v == 'Island57' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(632.216125, 223507, -247.317963)
+		elseif v == 'Island58' then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(634.431335, 226951.734, -253.989822)
+	end 
+	end)
+		
+	w:Toggle('Open Egg',function(v) shared.openeggs =v end)
+	w:Dropdown('Eggs',petname,function(v) shared.Egg = v end)
+
+	local function openegg(Name)
+	local userdata_1 = game:GetService("ReplicatedStorage").Eggs[Name];
+	local number_1 = 1;
+	local Target = game:GetService("ReplicatedStorage").Events.HatchEggs;
+	Target:InvokeServer(userdata_1, number_1);
+	end
+
+	spawn(function()
+	    while wait() do if shared.openeggs then openeggs(shared.Egg) end end end)
+	---- craftpet
+	w:Toggle('Auto Craft Pet',function(v) shared.craftpet =v end)
+
+	local function craft()
+	local Target = game:GetService("ReplicatedStorage").Events.CombineAll;
+	Target:FireServer();
+	end
+	-----
+	local delpet = {}
+
+	for i,v in pairs(game:GetService('ReplicatedStorage'):FindFirstChild('Pets'):GetChildren()) do
+	    if not delpet[v.Name] then
+	        delpet[v.Name] = v.Name
+	    end
+	end
+
+	w:Toggle('Delete Pet',function(v) shared.delpet =v end)
+	w:Dropdown('Pets',delpet,function(v) shared.delspet = v end)
+
+	local function delspet(Name)
+	local string_1 = "[Name]";
+	local string_2 = "Delete";
+	local Target = game:GetService("ReplicatedStorage").Events.PetCommand;
+	Target:FireServer(string_1, string_2);
+	end
+
+	spawn(function()
+	while wait() do if shared.delpet then shared.delpel(shared.delspet) end end end)
