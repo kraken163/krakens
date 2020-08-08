@@ -28,7 +28,6 @@
 	end
 	end
 	end) 
-
 	--- Anti Afk
 	local afk = game:GetService("VirtualUser")
 	game:GetService("Players").LocalPlayer.Idled:connect(function()
@@ -105,8 +104,9 @@
 	wait()
 	end)
 
-	local Slider = w:Slider('Speed',{min =0,max = 100},function(i) 
-	print('concac') end)
+	local Slider = w:Slider('Speed',{min =0,max = 100},function(v) 
+	game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = v 
+	end)
 	---TIme
 	local label = w:Label('Time Elapsed:')
 
@@ -116,45 +116,52 @@
 
 	spawn(function()
 	    while wait() do 
-	    	if shared.farmcc then
-	    	farm()
-	   	 end 
-	   	end 
-	   end)		
+	        if shared.farmcc then
+	            farmcc()
+	        end
+	    end
+	end)
+
 	spawn(function()
 	    while wait() do 
 	        if shared.sellconcac1 then
 	            sellconcac1()
-	        end 
-	    end 
-	end)	
+	        end
+	    end
+	end)
 
 	spawn(function()
 	    while wait() do 
 	        if shared.sword then
 	            sword()
-	       end 
-	   end 
-	end)	
+	        end
+	    end
+	end)
 
 	spawn(function()
 	    while wait(2) do 
 	        if shared.dna then
 	            dna()
-	        end end end)	
+	        end
+	    end
+	end)
 
 	spawn(function()
 	    while wait(1.5) do 
 	        if shared.rank then
 	            rank()
-	        end end end)	
+	        end
+	    end
+	end)
 
 	spawn(function()
 	    while wait(0.5) do 
 	        if shared.skill and shared.bosshit then
 	            skill()
 	            bosshit()
-	        end end end)	
+	        end
+	    end
+	end)
 
 	local petname = {}
 
