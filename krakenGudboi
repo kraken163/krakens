@@ -1,4 +1,4 @@
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/chimnguu/ngu/master/cyberuilib.lua"))()
+	local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/chimnguu/ngu/master/cyberuilib.lua"))()
 	
 	local w = lib:CreateWindow('Saber Simulator')
 
