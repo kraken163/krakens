@@ -1,3 +1,5 @@
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/chimnguu/ngu/master/cyberuilib.lua"))()
+	
 	local w = lib:CreateWindow('Saber Simulator')
 
 	local label = w:Label('Auto Saber')
