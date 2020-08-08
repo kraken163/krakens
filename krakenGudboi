@@ -10,24 +10,6 @@
 	w:Toggle('Auto Rank',function(v) shared.rank =v end)
 	w:Toggle('Auto Skills',function(v) shared.skill =v end)
 	w:Toggle('Claim Flag',function(v) shared.flag =v end)
-	w:Label('Order',Color3.fromRGB(255,255,255))
-	w:Label('---> Kill Player Here',Color3.fromRGB(255,255,255))
-	local tog= false
-	local player = false
-	local toggle =w:Toggle("Kill",function(cc)
-	tog = cc
-	end)
-	local box = w:TextBox("TypeNameHere",function(v)
-	player = v
-	end)
-	spawn(function()
-		while wait(0.2) do
-			if tog == true then    
-	game.Workspace[player].HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame*CFrame.new(0,0,-3)
-	game.Workspace[player].HumanoidRootPart.Anchored = true
-	end
-	end
-	end) 
 	--- Anti Afk
 	local afk = game:GetService("VirtualUser")
 	game:GetService("Players").LocalPlayer.Idled:connect(function()
