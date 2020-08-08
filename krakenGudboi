@@ -117,19 +117,25 @@
 	spawn(function()
 	    while wait() do 
 	    	if shared.farmcc then
-	    	sword()
-	   	 end end end)		
+	    	farm()
+	   	 end 
+	   	end 
+	   end)		
 	spawn(function()
 	    while wait() do 
 	        if shared.sellconcac1 then
 	            sellconcac1()
-	        end end end)	
+	        end 
+	    end 
+	end)	
 
 	spawn(function()
 	    while wait() do 
 	        if shared.sword then
 	            sword()
-	       end end end)	
+	       end 
+	   end 
+	end)	
 
 	spawn(function()
 	    while wait(2) do 
