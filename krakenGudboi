@@ -9,7 +9,8 @@
 	w:Toggle('Auto DNA',function(v) shared.dna =v end)
 	w:Toggle('Auto Rank',function(v) shared.rank =v end)
 	w:Toggle('Auto Skills',function(v) shared.skill =v end)
-	w:Toggle('Claim Flag',function(v) shared.flag =v end)
+	w:Toggle('Claim Crown',function(v) shared.crown =v end)
+	w:Toggle('Auto Claim Flag',function(v) shared.flag =v end)
 	--- Anti Afk
 	local afk = game:GetService("VirtualUser")
 	game:GetService("Players").LocalPlayer.Idled:connect(function()
