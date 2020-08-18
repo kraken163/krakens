@@ -1,0 +1,192 @@
+local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/chimnguu/ngu/master/giadinhcyberuilib.lua"))()
+
+local w = lib:CreateWindow('Saber bú cặc chó')
+
+w:Toggle('Auto Farm',function(v) shared.farmcc =v end)
+w:Toggle('Auto Sell',function(v) shared.sellconcac1 =v end)
+w:Toggle('Auto Sword',function(v) shared.sword =v end)
+w:Toggle('Auto DNA',function(v) shared.dna =v end)
+w:Toggle('Auto Rank',function(v) shared.rank =v end)
+w:Toggle('Auto Skills',function(v) shared.skill =v end)
+
+local afk = game:GetService("VirtualUser")
+game:GetService("Players").LocalPlayer.Idled:connect(function()
+afk:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+wait(1)
+afk:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+end)
+
+local function sword()
+local string_1 = "Swords";
+local Target = game:GetService("ReplicatedStorage").Events.BuyAll;
+Target:FireServer(string_1);
+end
+
+local function dna()
+local string_1 = "Backpacks";
+local Target = game:GetService("ReplicatedStorage").Events.BuyAll;
+Target:FireServer(string_1);
+end
+
+---- auto rank nhu con cac
+local function rank()
+	for _,v in pairs( game:GetService("ReplicatedStorage").ShopItems.Classes:GetChildren()) do
+	if v:IsA("Folder") then
+local userdata_1 = v;
+local Target = game:GetService("ReplicatedStorage").Events.BuyItem;
+Target:FireServer(userdata_1);
+end
+end
+end
+------ cach ly
+
+local function skill()
+local string_1 = "JumpBoosts";
+local Target = game:GetService("ReplicatedStorage").Events.BuyAll;
+Target:FireServer(string_1);
+end
+
+local function bosshit()
+local string_1 = "BossBoosts";
+local Target = game:GetService("ReplicatedStorage").Events.BuyAll;
+Target:FireServer(string_1);
+end
+
+local sellconcac = CFrame.new(532.8, 186.313, 151.486) 
+local Hum = game.Players.LocalPlayer.Character.HumanoidRootPart 
+
+local function tool()
+for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do 
+if v:IsA('Tool') then 
+v.Parent = game.Players.LocalPlayer.Character
+end
+end
+end
+
+local function farmcc()
+tool()
+local Target = game:GetService("ReplicatedStorage").Events.Clicked;
+Target:FireServer();
+end
+
+local function sellconcac1()
+Hum.CFrame = sellconcac
+local Target = game:GetService("ReplicatedStorage").Events.Sell;
+Target:FireServer();
+end
+
+
+w:Label("Setting",Color3.fromRGB(38,38,38),Color3.fromRGB(0,216,111)) --BgColor,TextColor
+local togui = w:ToggleUI(Enum.KeyCode.B)
+local des = w:DestroyUI()
+local jump = w:Bind('INF Jump',Enum.KeyCode.Space,function()
+game.Players.LocalPlayer.Character.Humanoid:ChangeState(3)
+wait()
+end)
+
+local Slider = w:Slider('Slider',{min =0,max = 100},function(v) 
+print(v) 
+end)
+
+---TIme
+local label = w:Label('Time Elapsed:')
+
+local label = w:Label('Credit:')
+local label = w:Label('Script:Kraken#1700')
+local label = w:Label('Ui:Chim#2575')
+
+spawn(function()
+    while wait() do 
+        if shared.farmcc then
+            farmcc()
+        end
+    end
+end)
+
+spawn(function()
+    while wait() do 
+        if shared.sellconcac1 then
+            sellconcac1()
+        end
+    end
+end)
+
+spawn(function()
+    while wait() do 
+        if shared.sword then
+            sword()
+        end
+    end
+end)
+
+spawn(function()
+    while wait(1.5) do 
+        if shared.dna then
+            dna()
+        end
+    end
+end)
+
+spawn(function()
+    while wait(1) do 
+        if shared.rank then
+            rank()
+        end
+    end
+end)
+
+spawn(function()
+    while wait(0.5) do 
+        if shared.skill and shared.bosshit then
+            skill()
+            bosshit()
+        end
+    end
+end)
+
+local petname = {}
+
+for i,v in pairs(game:GetService('ReplicatedStorage'):FindFirstChild('Eggs'):GetChildren()) do
+    if not petname[v.Name] then
+        petname[v.Name] = v.Name
+    end
+end
+
+local w = lib:CreateWindow('Teleport & Eggs')
+
+local tele1 = w:Button('MainLand',function() 
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(493.070526, 797.530945, 263.546448)
+end)
+
+local island = w:Dropdown('Lands',{'Island1','Island2','Island3','Island4','Island5','Island6','Island7','Island8','Island9','Island10','Island11','Island12','Island13','Island14','Island15','Island16','Island17','Island18','Island19','Island20','Island21','Island22','Island23','Island24','Island25','Island26','Island27','Island28','Island29','Island30'},function(v) 
+print(v) end)
+
+w:Toggle('Open Egg',function(v) shared.openeggs =v end)
+w:Dropdown('Eggs',petname,function(v) shared.Egg = v end)
+
+local function openegg(Name)
+local userdata_1 = game:GetService("ReplicatedStorage").Eggs[Name];
+local number_1 = 1;
+local Target = game:GetService("ReplicatedStorage").Events.HatchEggs;
+Target:InvokeServer(userdata_1, number_1);
+end
+
+spawn(function()
+    while wait() do if shared.openeggs then openegg(shared.Egg) end end end)
+---- craftpet
+w:Toggle('Auto Craft Pet',function(v) shared.craftpet =v end)
+
+local function craft()
+local Target = game:GetService("ReplicatedStorage").Events.CombineAll;
+Target:FireServer();
+end
+-----
+w:Toggle('Sell Common',function(v) shared.sellcomoon =v end)
+----
+spawn(function()
+	while wait(1) do
+		if shared.craftpet then
+			craft()
+				end
+			end
+		end)
