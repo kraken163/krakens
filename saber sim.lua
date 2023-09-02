@@ -1,5 +1,3 @@
-loadstring(game:HttpGet("https://raw.githubusercontent.com/kraken163/krakens/master/anti%20cheat"))()
-
 local lib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/kraken163/krakens/master/ui%20lib')))()
 
 
