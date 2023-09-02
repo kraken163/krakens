@@ -1,5 +1,6 @@
 getgenv().Games = {
     [3823781113] = "https://raw.githubusercontent.com/kraken163/krakens/master/saber%20sim.lua?token=GHSAT0AAAAAACHCHK65P773Y6CZU3VEDBLMZHTYQBQ",
+    [3823781113] = "https://raw.githubusercontent.com/kraken163/krakens/master/zombie%20rush?token=GHSAT0AAAAAACHCHK65HVQSSWSMQ7JWEDH2ZHTYSQQ",
     [920587237] = "https://raw.githubusercontent.com/1201for/V.G-Hub/main/Games/Adopt-Me",
     [286090429] = "https://raw.githubusercontent.com/1201for/V.G-Hub/main/Games/Arsenal",
     [537413528] = "https://raw.githubusercontent.com/1201for/V.G-Hub/main/Buildaboat",
@@ -159,7 +160,6 @@ getgenv().Unknown = {
     "https://raw.githubusercontent.com/1201for/V.G-Hub/main/The%20Asylum%20worlds",
     "https://raw.githubusercontent.com/1201for/V.G-Hub/main/breaking%20point%20worlds",
     "https://raw.githubusercontent.com/1201for/V.G-Hub/main/ZombieUprising-worlds",
-    "https://raw.githubusercontent.com/1201for/V.G-Hub/main/Games/Zombie-Rush",
     "https://raw.githubusercontent.com/1201for/V.G-Hub/main/break%20in%20servers",
     "https://raw.githubusercontent.com/1201for/V.G-Hub/main/assassinworlds",
     "https://raw.githubusercontent.com/1201for/V.G-Hub/main/GetAllHats",
