@@ -1,0 +1,411 @@
+local Games = {137885680, 385060102, 4301323950}
+if not table.find(Games, game.PlaceId) then return end
+local Zombie = Workspace:WaitForChild("Zombie Storage")
+local Players = Players
+local LocalPlayer = Player
+local Mouse = LocalPlayer:GetMouse()
+function ClosestZombie()
+    local MaxDistance, Closest = math.huge
+    for i,v in pairs(Zombie:GetChildren()) do
+        if v.Humanoid and v.HumanoidRootPart and v then
+            local H = v:FindFirstChild("Head")
+            if H then 
+                local Dist = (Player.Character:GetModelCFrame().Position - H.Position).Magnitude
+                if Dist < MaxDistance then
+                    MaxDistance = Dist
+                     Closest = v
+                end
+            end
+        end
+    end
+    return Closest
+end
+local repo = 'https://raw.githubusercontent.com/wally-rblx/LinoriaLib/main/'
+local Library = loadstring(game:HttpGet(repo .. 'Library.lua'))()
+local ThemeManager = loadstring(game:HttpGet(repo .. 'addons/ThemeManager.lua'))()
+local SaveManager = loadstring(game:HttpGet(repo .. 'addons/SaveManager.lua'))()
+local Window = Library:CreateWindow({
+    Title = MarketplaceService:GetProductInfo(game.PlaceId).Name,
+    Center = true, 
+    AutoShow = true,
+})
+
+local Tabs = {
+    Main = Window:AddTab('Main'), 
+    ['UI Settings'] = Window:AddTab('UI Settings'),
+}
+
+local LeftGroupBox = Tabs.Main:AddLeftGroupbox('Groupbox')
+local RightGroupBox = Tabs.Main:AddRightGroupbox('Groupbox')
+local MenuGroup = Tabs['UI Settings']:AddLeftGroupbox('Menu')
+
+LeftGroupBox:AddToggle('ASs', {Text = 'AutoFarm', Default = false,Tooltip = '', Callback = function(A)
+Not = A 
+	RunService.Stepped:Connect(function()
+		pcall(function()
+			if Not then
+				NoClip2(Player.Character)
+				Workspace.Gravity = 0 
+				Tween(Player.Character:FindFirstChild("HumanoidRootPart"), CFrame.new(0,500,0), 50)
+				Workspace.Gravity = 196.2
+			end
+		end)
+	end)
+	spawn(function()
+		while wait(.1) and Not do
+			pcall(function()
+				if Player.Backpack:FindFirstChild(Player.EquipStorage.Primary.Value) then
+					Player.Character:FindFirstChildWhichIsA("Humanoid"):EquipTool(Player.Backpack:FindFirstChild(Player.EquipStorage.Primary.Value))
+				end
+				Workspace.CurrentCamera.CameraSubject = Zombie:GetChildren()[1].Humanoid
+				local args = {
+					[1] = {
+						["Tool"] = Player.Character:FindFirstChildWhichIsA("Tool"),
+						["RealTool"] = Player.Character:FindFirstChildWhichIsA("Tool"),
+						["LaserProperties"] = {
+							[1] = {
+								[1] = Enum.Material.Plastic,
+								[2] = BrickColor.new(1006),
+								[3] = Vector3.new(0,0,0),
+								[4] = CFrame.new(0,0,0),
+								[5] = Vector3.new(0,0,0),
+								[6] = Player.Character:FindFirstChildWhichIsA("Tool").Configuration.FullAuto.Value,
+								[7] = Player.Character:FindFirstChildWhichIsA("Tool").Configuration.Range.Value,
+								[8] = Vector3.new(0,0,0)
+							}
+						},
+						["HumanoidTables"] = {
+							[1] = {
+								["HeadHits"] = 1,
+								["THumanoid"] = Zombie:GetChildren()[1].Humanoid,
+								["BodyHits"] = 1
+							}
+						}
+					}
+				}
+
+				ReplicatedStorage.Remotes.WeaponEvent:FireServer(unpack(args))
+				if Zombie:GetChildren()[1].Humanoid.Health == 0 then
+					Workspace.CurrentCamera.CameraSubject = Player.Character.Humanoid
+				end
+			end)
+		end
+	end)
+end})
+Toggles.ASs:OnChanged(function()
+    Toggled = Toggles.ASsValue
+end)
+LeftGroupBox:AddToggle('ASs1', {Text = 'Kill Aura', Default = false,Tooltip = '', Callback = function(A)
+Run = A 
+	spawn(function()
+		while wait(.1) and Run do
+			pcall(function()
+				if Player.Backpack:FindFirstChild(Player.EquipStorage.Primary.Value) then
+					Player.Character:FindFirstChildWhichIsA("Humanoid"):EquipTool(Player.Backpack:FindFirstChild(Player.EquipStorage.Primary.Value))
+				end
+				local args = {
+					[1] = {
+						["Tool"] = Player.Character:FindFirstChildWhichIsA("Tool"),
+						["RealTool"] = Player.Character:FindFirstChildWhichIsA("Tool"),
+						["LaserProperties"] = {
+							[1] = {
+								[1] = Enum.Material.Plastic,
+								[2] = BrickColor.new(1006),
+								[3] = Vector3.new(0,0,0),
+								[4] = CFrame.new(0,0,0),
+								[5] = Vector3.new(0,0,0),
+								[6] = Player.Character:FindFirstChildWhichIsA("Tool").Configuration.FullAuto.Value,
+								[7] = Player.Character:FindFirstChildWhichIsA("Tool").Configuration.Range.Value,
+								[8] = Vector3.new(0,0,0)
+							}
+						},
+						["HumanoidTables"] = {
+							[1] = {
+								["HeadHits"] = 1,
+								["THumanoid"] = ClosestZombie().Humanoid,
+								["BodyHits"] = 1
+							}
+						}
+					}
+				}
+
+				ReplicatedStorage.Remotes.WeaponEvent:FireServer(unpack(args))
+			end)
+		end
+	end)
+end})
+Toggles.ASs1:OnChanged(function()
+    Run = Toggles.ASs1.Value
+end)
+LeftGroupBox:AddToggle('A', {Text = 'Slient Aim', Default = false,Tooltip = '', Callback = function(A)
+Toggled = A 
+    function ClosestPlayerToCurser()
+        local MaxDistance, Closest = math.huge
+        for i,v in pairs(Zombie.GetChildren(Zombie)) do
+            if v.Humanoid and v.HumanoidRootPart and v then
+                local H = v.FindFirstChild(v, "Head")
+                if H then 
+                    local Pos, Vis = Workspace.CurrentCamera.WorldToScreenPoint(Workspace.CurrentCamera, H.Position)
+                    if Vis then
+                        local A1, A2 = Vector2.new(Mouse.X, Mouse.Y), Vector2.new(Pos.X, Pos.Y)
+                        local Dist = (A2 - A1).Magnitude
+                        if Dist < MaxDistance and Dist <= 2500 then
+                            MaxDistance = Dist
+                            Closest = v
+                        end
+                    end
+                end
+            end
+        end
+        return Closest
+    end
+    local OldNameCall = nil
+    OldNameCall = hookmetamethod(game, "__namecall", function(self,...)
+        local Args = {...}
+        if getnamecallmethod() == "FindPartOnRayWithIgnoreList" and not checkcaller() and Toggled then
+            if ClosestPlayerToCurser() and ClosestPlayerToCurser().Head then
+                Args[1] = Ray.new(Workspace.CurrentCamera.CFrame.Position, (ClosestPlayerToCurser().Head.Position - Workspace.CurrentCamera.CFrame.Position).Unit * 1000)
+                return OldNameCall(self, unpack(Args))
+            end
+        end
+        return OldNameCall(self, ...)
+    end)
+end})
+Toggles.A:OnChanged(function()
+    Toggled = Toggles.A.Value
+end)
+LeftGroupBox:AddToggle('T', {Text = 'HitBox Extender', Default = false,Tooltip = '', Callback = function(A)
+Foe = A 
+	RunService.Stepped:Connect(function()
+		if Foe then
+			for i,v in next, Zombie:GetChildren() do
+				if v:IsA("Model") and v:FindFirstChildWhichIsA("Humanoid") then
+					v.HumanoidRootPart.Size = Vector3.new(10,10,10)
+					v.HumanoidRootPart.CanCollide = false
+					v.HumanoidRootPart.Transparency = 0.5
+				end
+			end
+		end
+	end)
+end})
+Toggles.T:OnChanged(function(State)
+    Foe = Toggles.T.Value 
+end)
+RightGroupBox:AddToggle('SSS', {Text = 'WalkSpeed Toggle',Default = false,Tooltip = '', Callback = function(A)
+WS = A 
+    RunService.Stepped:Connect(function()
+        if WS then
+			print(WalkSpeed)
+            Player.Character:FindFirstChildWhichIsA("Humanoid").WalkSpeed = WalkSpeed or 16
+        end
+    end)
+end})
+Toggles.SSS:OnChanged(function(State)
+    Foe = Toggles.SSS.Value 
+end)
+RightGroupBox:AddInput('SSF3', {Default = 'WalkSpeed',Numeric = true,Finished = false,Text = 'WalkSpeed',Tooltip = 'Numbers Only',Placeholder = 'WalkSpeed'})
+Options.SSF3:OnChanged(function(State)
+    WalkSpeed = Options.SSF3.Value
+end)
+
+RightGroupBox:AddToggle('EEE', {Text = 'JumpPower Toggle',Default = false,Tooltip = '', Callback = function(A)
+JP = A 
+    RunService.Stepped:Connect(function()
+        if JP then
+            pcall(function()
+                Player.Character:FindFirstChildWhichIsA("Humanoid").JumpPower = JumpPower or 50
+            end)
+        end
+    end)
+end})
+Toggles.EEE:OnChanged(function(State)
+    JP = Toggles.EEE.Value 
+end)
+RightGroupBox:AddInput('SSF1', {Default = 'JumpPower',Numeric = true,Finished = false,Text = 'JumpPower',Tooltip = 'Numbers Only',Placeholder = 'JumpPower'})
+
+Options.SSF1:OnChanged(function(State)
+    JumpPower = Options.SSF1.Value 
+end)
+
+
+RightGroupBox:AddToggle('vvS', {Text = 'Infinite Jump',Default =  InfiniteJump,Tooltip = '', Callback = function(A)
+InfiniteJump = A
+    UserInputService.JumpRequest:connect(function()
+        if InfiniteJump then
+            Player.Character:FindFirstChildWhichIsA("Humanoid"):ChangeState("Jumping")
+        end
+    end)
+end})
+
+Toggles.vvS:OnChanged(function()
+    InfiniteJump = Toggles.vvS.Value 
+end)
+
+RightGroupBox:AddToggle('eeS', {Text = 'N NoClip',Default =  Sex2,Tooltip = '', Callback = function(A)
+noclips = A
+    RunService.Stepped:connect(function(v)
+        if noclips then
+            pcall(function()
+                NoClip2(Player.Character)
+            end)
+        end
+    end)
+end})
+Toggles.eeS:OnChanged(function()
+    noclips = Toggles.eeS.Value 
+end)
+
+RightGroupBox:AddToggle('aaS', {Text = 'H Fly',Default =  Sex,Tooltip = 'Fly By Pressing H', Callback = function(A)
+Sex = A
+local Max = 0
+local LP = Players.LocalPlayer
+local Mouse = LP:GetMouse()
+Mouse.KeyDown:connect(
+    function(k)
+        if k:lower() == "h" and Sex then
+            Max = Max + 1
+            getgenv().Fly = false
+            if Sex then
+                local T = LP.Character:FindFirstChild("UpperTorso",true) or LP.Character:FindFirstChild("HumanoidRootPart",true)
+                local S = {
+                    F = 0,
+                    B = 0,
+                    L = 0,
+                    R = 0
+                }
+                local S2 = {
+                    F = 0,
+                    B = 0,
+                    L = 0,
+                    R = 0
+                }
+                local SPEED = 5
+                local function FLY()
+                    getgenv().Fly = true
+                    local BodyGyro = Instance.new("BodyGyro", T)
+                    local BodyVelocity = Instance.new("BodyVelocity", T)
+                    BodyGyro.P = 9e4
+                    BodyGyro.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+                    BodyGyro.cframe = T.CFrame
+                    BodyVelocity.velocity = Vector3.new(0, 0, 0)
+                    BodyVelocity.maxForce = Vector3.new(9e9, 9e9, 9e9)
+                    spawn(
+                        function()
+                            repeat
+                                wait()
+                                LP.Character.Humanoid.PlatformStand = true
+                                if S.L + S.R ~= 0 or S.F + S.B ~= 0 then
+                                    SPEED = 500
+                                elseif not (S.L + S.R ~= 0 or S.F + S.B ~= 0) and SPEED ~= 0 then
+                                    SPEED = 0
+                                end
+                                if (S.L + S.R) ~= 0 or (S.F + S.B) ~= 0 then
+                                    BodyVelocity.velocity =
+                                        ((Workspace.CurrentCamera.CoordinateFrame.lookVector * (S.F + S.B)) +
+                                        ((Workspace.CurrentCamera.CoordinateFrame *
+                                            CFrame.new(S.L + S.R, (S.F + S.B) * 0.2, 0).p) -
+                                            Workspace.CurrentCamera.CoordinateFrame.p)) *
+                                        SPEED
+                                    S2 = {
+                                        F = S.F,
+                                        B = S.B,
+                                        L = S.L,
+                                        R = S.R
+                                    }
+                                elseif (S.L + S.R) == 0 and (S.F + S.B) == 0 and SPEED ~= 0 then
+                                    BodyVelocity.velocity =
+                                        ((Workspace.CurrentCamera.CoordinateFrame.lookVector * (S2.F + S2.B)) +
+                                        ((Workspace.CurrentCamera.CoordinateFrame *
+                                            CFrame.new(S2.L + S2.R, (S2.F + S2.B) * 0.2, 0).p) -
+                                            Workspace.CurrentCamera.CoordinateFrame.p)) *
+                                        SPEED
+                                else
+                                    BodyVelocity.velocity = Vector3.new(0, 0.1, 0)
+                                end
+                                BodyGyro.cframe = Workspace.CurrentCamera.CoordinateFrame
+                            until not getgenv().Fly
+                            S = {
+                                F = 0,
+                                B = 0,
+                                L = 0,
+                                R = 0
+                            }
+                            S2 = {
+                                F = 0,
+                                B = 0,
+                                L = 0,
+                                R = 0
+                            }
+                            SPEED = 0
+                            BodyGyro:destroy()
+                            BodyVelocity:destroy()
+                            LP.Character.Humanoid.PlatformStand = false
+                        end
+                    )
+                end
+                Mouse.KeyDown:connect(
+                    function(k)
+                        if k:lower() == "w" then
+                            S.F = 1
+                        elseif k:lower() == "s" then
+                            S.B = -1
+                        elseif k:lower() == "a" then
+                            S.L = -1
+                        elseif k:lower() == "d" then
+                            S.R = 1
+                        end
+                    end
+                )
+                Mouse.KeyUp:connect(
+                    function(k)
+                        if k:lower() == "w" then
+                            S.F = 0
+                        elseif k:lower() == "s" then
+                            S.B = 0
+                        elseif k:lower() == "a" then
+                            S.L = 0
+                        elseif k:lower() == "d" then
+                            S.R = 0
+                        end
+                    end
+                )
+                FLY()
+                if Max == 2 then
+                    getgenv().Fly = false
+                    Max = 0
+                end
+            end
+        end
+    end
+)
+end})
+Toggles.aaS:OnChanged(function()
+    Sex = Toggles.aaS.Value 
+end)
+
+
+RightGroupBox:AddButton('ServerHop', function() ServerHop() end)
+RightGroupBox:AddButton('Rejoin', function() 
+    local Success, ErrorMessage = pcall(function()
+        Rejoin()
+    end)
+    if ErrorMessage and not Success then
+        warn(ErrorMessage)
+    elseif Success and not ErrorMessage then
+        print(Success)
+    end
+end)
+-- I set NoUI so it does not show up in the keybinds menu
+MenuGroup:AddButton('Unload', function() Library:Unload() end)
+MenuGroup:AddLabel('Menu bind'):AddKeyPicker('MenuKeybind', { Default = "RightControl", NoUI = true, Text = 'Menu keybind' }) 
+
+Library.ToggleKeybind = Options.MenuKeybind 
+ThemeManager:SetLibrary(Library)
+SaveManager:SetLibrary(Library)
+
+SaveManager:IgnoreThemeSettings() 
+SaveManager:SetIgnoreIndexes({ 'MenuKeybind' }) 
+ThemeManager:SetFolder('V.G Hub')
+SaveManager:SetFolder("V.G Hub/" .. game.PlaceId)
+SaveManager:BuildConfigSection(Tabs['UI Settings']) 
+ThemeManager:ApplyToTab(Tabs['UI Settings'])
