@@ -2,7 +2,7 @@ repeat task.wait() until game:IsLoaded()
 local StartTime = tick()
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/kraken163/krakens/master/anti%20cheat"))()
-local A = loadstring(game:HttpGet("https://raw.githubusercontent.com/1201for/V.G-Hub/main/V.G-Hub-Games-List"))()
+local A = loadstring(game:HttpGet("https://raw.githubusercontent.com/kraken163/krakens/master/support%20main%20script?token=GHSAT0AAAAAACHCHK64M7HTXTNC7CP7HDFQZHTYU7A"))()
 
 local BlurEffect = Instance.new("BlurEffect")
 BlurEffect.Parent = Lighting
